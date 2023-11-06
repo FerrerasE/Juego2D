@@ -116,6 +116,7 @@ public class Enemy1 : MonoBehaviour
     }
     public void ColliderWeaponTrue()
     {
+        ani.SetBool("attack", true);
         Hit.GetComponent<BoxCollider2D>().enabled = true;
     }
     public void ColliderWeaponFalse()

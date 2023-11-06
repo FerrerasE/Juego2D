@@ -5,24 +5,50 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
    // Start is called before the first frame update
-    [SerializeField] private float movementSpeed = 1500f; //velocidad de movimiento del personaje
+    [SerializeField] private float movementSpeed = 2500f; //velocidad de movimiento del personaje
 
     private float limitRangeX; // variable privada que marca los limites de movimiento del jugador en el eje x
     //private float limitRangeY; // variable privada que marca los limites de movimiento del jugador en el eje y
     private bool isFacingRight = true; //respresenta el valor de mirar a la derecha
     private Rigidbody2D rb; //referencia al componente Rigibody2D del personaje
+    
+    public bool sePuedeMover = true; // variable que indica si el personaje se puede mover si no recibio golpe
+    [SerializeField] private Vector2 velocidadRebote; // se toma la velocidad del personaje cuando recibe el daño
+
+    //public bool damage1; // variable booleana de daño
+    //public float empuje; // variable que significa cuanto retrocedera el personaje al recibir el golpe
+
+    public Animator ani;
+
 
     private void Start()
     {
+        ani = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>(); //Obtenemos la referencia al Rigibody2D del personaje
         limitRangeX = 15.26f; 
     }
+     
+     void fixedUpdate(){
+        /**if (!damage1)
+        {
+           Move(movementSpeed);
+           //Character.CharacterJump.GetComponent<Jump>()
+        }*/
 
+        /**if (sePuedeMover)
+        {
+            //float movementX = Input.GetAxis("Horizontal");//obtenemos la entrada del moviemnto hoizontal (-1 a 1) y la almacenamos en movementX
+            Move(movementSpeed); 
+        }*/
+    }
     // Update is called once per frame
     private void Update()
     {
+        //Damage();
         float movementX = Input.GetAxis("Horizontal");//obtenemos la entrada del moviemnto hoizontal (-1 a 1) y la almacenamos en movementX
-        Move(movementX * movementSpeed); //normalizamos al multiplicar por deltatime
+        if (sePuedeMover) {
+        Move(movementX * movementSpeed); //
+        }
         // giro del personaje si se mueve hacia la izquierda
         if (movementX < 0 && isFacingRight)
         {
@@ -60,4 +86,26 @@ public class CharacterMovement : MonoBehaviour
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         isFacingRight = !isFacingRight;
     }
+
+    public void Rebote(Vector2 puntoGolpe){
+        rb.velocity = new Vector2(-velocidadRebote.x * puntoGolpe.x, velocidadRebote.y);
+
+    }
+
+    
+
+   /** public void Damage(){
+
+        if(damage1 = true){
+            transform.Translate(rb.velocity * empuje * Time.deltaTime);
+             //rb = new Vector2(empuje* Time.deltaTime, 0);
+            //ani.ResetTrigger("damage");
+            
+        }
+    }
+
+    public void DamageFin(){
+        damage1 = false;
+        //ani.ResetTrigger("damage");
+    }*/
 }
