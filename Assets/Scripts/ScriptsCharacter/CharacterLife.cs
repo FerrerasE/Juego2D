@@ -16,7 +16,7 @@ public class CharacterLife : MonoBehaviour
         StartCoroutine(PerderControl());
         StartCoroutine(DesactivarDaño());
         characterMovement.Rebote(posicion);
-         animator.SetTrigger("damage");
+         
     }
     
     /** Corrutina para activar los segundos en que el personaje es golpeado*/

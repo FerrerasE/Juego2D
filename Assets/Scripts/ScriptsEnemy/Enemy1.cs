@@ -20,10 +20,13 @@ public class Enemy1 : MonoBehaviour
     public GameObject rango;
     public GameObject Hit;
 
+    private float limitRangeX; //rango limite para que el enemigo no se vaya
+
 
     // Start is called before the first frame update
     void Start()
     {
+        limitRangeX = 15.26f;  // limite en el ejex
         ani = GetComponent<Animator>();
         target = GameObject.Find("Character");
     }
@@ -107,6 +110,8 @@ public class Enemy1 : MonoBehaviour
             }
         }
     }
+    
+
 
     public void Final_Ani()
     {
@@ -123,10 +128,25 @@ public class Enemy1 : MonoBehaviour
     {
         Hit.GetComponent<BoxCollider2D>().enabled = false;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         Comportamientos();
+        
+        /** Este if limita la posicion del jugador hasta la izquierda*/
+        if (gameObject.transform.position.x < -limitRangeX)
+        {
+            gameObject.transform.position = new Vector3(-limitRangeX,
+                                                         gameObject.transform.position.y,
+                                                         gameObject.transform.position.z);
+        }
+         /** Este if limita la posicion del jugador hasta la derecha*/
+         if (gameObject.transform.position.x > limitRangeX)
+        {
+            gameObject.transform.position = new Vector3(limitRangeX,
+                                                         gameObject.transform.position.y,
+                                                         gameObject.transform.position.z);
+        }
     }
 }
