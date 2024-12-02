@@ -15,7 +15,8 @@ public class CharacterMovement : MonoBehaviour
     public bool sePuedeMover = true; // variable que indica si el personaje se puede mover si no recibio golpe
     [SerializeField] private Vector2 velocidadRebote; // se toma la velocidad del personaje cuando recibe el daño
 
-
+    //public bool damage1; // variable booleana de daño
+    //public float empuje; // variable que significa cuanto retrocedera el personaje al recibir el golpe
 
     public Animator ani;
 
@@ -27,7 +28,19 @@ public class CharacterMovement : MonoBehaviour
         limitRangeX = 15.26f; 
     }
      
-     
+     void fixedUpdate(){
+        /**if (!damage1)
+        {
+           Move(movementSpeed);
+           //Character.CharacterJump.GetComponent<Jump>()
+        }*/
+
+        /**if (sePuedeMover)
+        {
+            //float movementX = Input.GetAxis("Horizontal");//obtenemos la entrada del moviemnto hoizontal (-1 a 1) y la almacenamos en movementX
+            Move(movementSpeed); 
+        }*/
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -50,14 +63,14 @@ public class CharacterMovement : MonoBehaviour
     
     // establecemos la velocidad del PJ para el movimiento horizontal
     public void Move(float velocity){
-         // Este if limita la posicion del jugador hasta la izquierda
+         /** Este if limita la posicion del jugador hasta la izquierda*/
         if (gameObject.transform.position.x < -limitRangeX)
         {
             gameObject.transform.position = new Vector3(-limitRangeX,
                                                          gameObject.transform.position.y,
                                                          gameObject.transform.position.z);
         }
-         // Este if limita la posicion del jugador hasta la derecha
+         /** Este if limita la posicion del jugador hasta la derecha*/
          if (gameObject.transform.position.x > limitRangeX)
         {
             gameObject.transform.position = new Vector3(limitRangeX,
@@ -65,7 +78,7 @@ public class CharacterMovement : MonoBehaviour
                                                          gameObject.transform.position.z);
         }
         rb.velocity = new Vector2(velocity * Time.deltaTime, rb.velocity.y);
-        
+        //Debug.Log(transform.position);
     }
     // cambiamos la escala en el eje X para voltear el personaje
     private void Flip()
@@ -81,5 +94,18 @@ public class CharacterMovement : MonoBehaviour
 
     
 
-   
+   /** public void Damage(){
+
+        if(damage1 = true){
+            transform.Translate(rb.velocity * empuje * Time.deltaTime);
+             //rb = new Vector2(empuje* Time.deltaTime, 0);
+            //ani.ResetTrigger("damage");
+            
+        }
+    }
+
+    public void DamageFin(){
+        damage1 = false;
+        //ani.ResetTrigger("damage");
+    }*/
 }

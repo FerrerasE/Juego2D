@@ -15,7 +15,7 @@ public class Enemy1 : MonoBehaviour
 
     public float rango_visionX;
 
-   
+    //public float rango_visionY;
     public float rango_ataque;
     public GameObject rango;
     public GameObject Hit;
@@ -33,7 +33,6 @@ public class Enemy1 : MonoBehaviour
 
     public void Comportamientos()
     {
-        //Este if con el switch ocurre cuando el enemigo no nos ve
         if (Mathf.Abs(transform.position.x - target.transform.position.x) > rango_visionX && !atacando)
         {
             ani.SetBool("run", false);
@@ -73,8 +72,7 @@ public class Enemy1 : MonoBehaviour
             }
         }
         else
-        {    
-            //este if con el else ocurre cuando el enemigo nos ve
+        {
             if (Mathf.Abs(transform.position.x - target.transform.position.x) > rango_ataque && !atacando)
             {
                if (transform.position.x < target.transform.position.x)
@@ -114,15 +112,13 @@ public class Enemy1 : MonoBehaviour
     }
     
 
-     //finaliza la animacion de atacando
+
     public void Final_Ani()
     {
         ani.SetBool("attack", false);
         atacando = false;     
         rango.GetComponent<BoxCollider2D>().enabled = true;
     }
-    
-    //la colision es verdadera y el enemigo activa la animacion de ataque
     public void ColliderWeaponTrue()
     {
         ani.SetBool("attack", true);
@@ -138,14 +134,14 @@ public class Enemy1 : MonoBehaviour
     {
         Comportamientos();
         
-        // Este if limita la posicion del jugador hasta la izquierda
+        /** Este if limita la posicion del jugador hasta la izquierda*/
         if (gameObject.transform.position.x < -limitRangeX)
         {
             gameObject.transform.position = new Vector3(-limitRangeX,
                                                          gameObject.transform.position.y,
                                                          gameObject.transform.position.z);
         }
-         // Este if limita la posicion del jugador hasta la derecha
+         /** Este if limita la posicion del jugador hasta la derecha*/
          if (gameObject.transform.position.x > limitRangeX)
         {
             gameObject.transform.position = new Vector3(limitRangeX,

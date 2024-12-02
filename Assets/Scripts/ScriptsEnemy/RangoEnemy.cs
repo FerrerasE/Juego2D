@@ -9,20 +9,23 @@ public class RangoEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        //si hay colision, se cancela las animacion de caminar y correr, se activa la animacion de golpe
         if (coll.CompareTag("Character"))
         {
            ani.SetBool("walk", false);
            ani.SetBool("run", false);
            ani.SetBool("attack", true);
            enemigo.atacando = true;
-           GetComponent<BoxCollider2D>().enabled = false;           
+           GetComponent<BoxCollider2D>().enabled = false; 
+           if (enemigo.atacando = true)
+           {
+            Debug.Log("le dieron un putazo a Aladdin");
+           }           
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        //ani = GetComponent<Animator>();
     }
 
     // Update is called once per frame
